@@ -41,7 +41,7 @@ VOLUME ["/data"]
 WORKDIR /data
 
 # Define default command.
-CMD crond && redis-server /etc/redis/redis.conf && tail -f /var/log/metrics_cron.log
+CMD ["/entrypoint.sh"]
 
 # Expose ports.
 EXPOSE 6379
