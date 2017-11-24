@@ -28,7 +28,7 @@ def put_redis_metric():
                     'Dimensions': [
                         {
                             'Name': 'redis-{0}'.format(HBI_PROJECT_NAME),
-                            'Value': 'used_memory'
+                            'Value': 'used_memory_{0}'.format(HBI_PROJECT_NAME)
                         }
                     ],
                     'Timestamp': datetime.datetime.utcnow(),
