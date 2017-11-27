@@ -4,6 +4,19 @@ set -x
 
 pid=0
 
+for i in "$@"
+do
+case $i in
+    --save=*)
+    SAVE="${i#*=}"
+    shift
+    ;;
+    --slaveof=*)
+    SLAVEOF="${i#*=}"
+    shift
+    ;;
+esac
+done
 
 # SIGTERM-handler
 term_handler() {
@@ -27,7 +40,12 @@ then
     sed -i "s/dbfilename dump.rdb/dbfilename dump_metrics_${HOSTNAME}_${HBI_PROJECT_NAME}.rdb/" /etc/redis/redis.conf
 fi
 crond
-redis-server /etc/redis/redis.conf &
+if [ -n "${SAVE}" ] || [ -n "${SLAVEOF}" ]
+then
+    redis-server /etc/redis/redis.conf --save ${SAVE} --slaveof ${SLAVEOF}
+else
+    redis-server /etc/redis/redis.conf &
+fi
 pid="$!"
 
 # wait forever
