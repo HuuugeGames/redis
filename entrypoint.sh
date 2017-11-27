@@ -42,7 +42,7 @@ fi
 crond
 if [ -n "${SAVE}" ] || [ -n "${SLAVEOF}" ]
 then
-    redis-server /etc/redis/redis.conf --save ${SAVE} --slaveof ${SLAVEOF}
+    redis-server /etc/redis/redis.conf --save "" --slaveof ${SLAVEOF} &
 else
     redis-server /etc/redis/redis.conf &
 fi
