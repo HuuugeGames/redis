@@ -26,7 +26,8 @@ RUN cp redis.conf /etc/redis/redis.conf && \
   sed -i 's/^\(slave-read-only yes\)$/slave-read-only no/' /etc/redis/redis.conf && \
   sed -i 's/^\(save 900 1\)/# \1/' /etc/redis/redis.conf && \
   sed -i 's/^\(save 300 10\)/# \1/' /etc/redis/redis.conf && \
-  sed -i 's/^\(save 60 10000\)/save 86400 1/' /etc/redis/redis.conf
+  sed -i 's/^\(save 60 10000\)/save 86400 1/' /etc/redis/redis.conf && \
+  sed -i 's/^\(# repl-timeout 60\)/repl-timeout 1500/' /etc/redis/redis.conf
 
 RUN cp cloudwatch_metric.py /etc/redis/cloudwatch_metric.py
 RUN chmod a+x /etc/redis/cloudwatch_metric.py
