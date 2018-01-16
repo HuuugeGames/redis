@@ -4,6 +4,7 @@ import os
 
 import boto3
 import redis
+import socket
 
 
 def put_redis_metric():
@@ -24,11 +25,11 @@ def put_redis_metric():
             Namespace=CLOUDWATCH_NAMESPACE,
             MetricData=[
                 {
-                    'MetricName': 'redis-info',
+                    'MetricName': 'memory-used',
                     'Dimensions': [
                         {
-                            'Name': 'redis-{0}'.format(HBI_PROJECT_NAME),
-                            'Value': 'used_memory_{0}'.format(HBI_PROJECT_NAME)
+                            'Name': 'InstanceId',
+                            'Value': '{0}-{1}'.format(os.environ['HOSTNAME'], HBI_PROJECT_NAME)
                         }
                     ],
                     'Timestamp': datetime.datetime.utcnow(),
