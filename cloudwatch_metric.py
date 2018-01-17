@@ -4,7 +4,6 @@ import os
 
 import boto3
 import redis
-import socket
 
 
 def put_redis_metric():
@@ -33,8 +32,8 @@ def put_redis_metric():
                         }
                     ],
                     'Timestamp': datetime.datetime.utcnow(),
-                    'Value': mem,
-                    'Unit': 'Bytes',
+                    'Value': mem / 1024.0 / 1024.0 /1024.0,
+                    'Unit': 'Gigabytes',
                 }
             ]
         )
